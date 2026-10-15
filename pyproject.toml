@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mkswifi"
+version = "0.1.0"
+description = "Asyncio client for 3D printers with a Makerbase MKS WIFI module (MKS Robin boards)"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Alexandre Duval", email = "kannarfr@gmail.com" }]
+requires-python = ">=3.12"
+dependencies = []
+keywords = ["3d-printer", "mks", "makerbase", "mks-wifi", "robin", "asyncio", "home-assistant"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: AsyncIO",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Home Automation",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/KannarFr/mkswifi"
+Repository = "https://github.com/KannarFr/mkswifi"
+Issues = "https://github.com/KannarFr/mkswifi/issues"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.13",
+    "pytest>=8.3",
+    "pytest-asyncio>=0.25",
+    "pytest-cov>=6.0",
+    "ruff>=0.8",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mkswifi"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/mkswifi", "tests", "README.md", "LICENSE"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "B", "SIM", "RUF", "ASYNC", "PT", "C4", "RET", "PL"]
+ignore = ["PLR2004"]
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+addopts = "--cov=mkswifi --cov-branch --cov-report=term-missing"
+
+[tool.coverage.report]
+fail_under = 100
+show_missing = true
